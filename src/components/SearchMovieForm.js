@@ -8,18 +8,29 @@ const SearchMovieForm = () => {
 
   const searchMovie = async e => {
     e.preventDefault();
+    dispatch({
+      type: "GET_MOVIES_REQUEST"
+    });
 
     try {
       const res = await axios.get(
         `https://www.omdbapi.com/?s=${title}&apikey=4a3b711b`
       );
 
-      dispatch({
-        type: "GET_MOVIES",
-        payload: res.data.Search
-      });
+      if (res.data.Response === "True") {
+        dispatch({
+          type: "GET_MOVIES_SUCCESS",
+          payload: res.data.Search
+        });
+      } else {
+        dispatch({
+          type: "GET_MOVIES_FAIL"
+        });
+      }
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: "GET_MOVIES_FAIL"
+      });
     }
   };
   return (
