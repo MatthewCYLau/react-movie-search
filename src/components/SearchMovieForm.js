@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import MoviesContext from "../context/movies-context";
 import axios from "axios";
+import { Form, Button } from "react-bootstrap";
 
 const SearchMovieForm = () => {
   const { dispatch } = useContext(MoviesContext);
@@ -34,12 +35,21 @@ const SearchMovieForm = () => {
     }
   };
   return (
-    <div>
-      <p>Search for your favourite movies</p>
-      <form onSubmit={searchMovie}>
-        <input value={title} onChange={e => setTitle(e.target.value)} />
-        <button>Search</button>
-      </form>
+    <div className="container">
+      <h2 className="lead-text">Search for your favourite movie posters</h2>
+      <Form onSubmit={searchMovie}>
+        <Form.Group>
+          <Form.Control
+            type="text"
+            placeholder="Movie Name"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+          />
+        </Form.Group>
+        {/* <Button variant="primary" type="submit">
+          Search!
+        </Button> */}
+      </Form>
     </div>
   );
 };
